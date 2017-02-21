@@ -1,0 +1,146 @@
+Shader "miHoYo/Prop/Prop_Outline (Complex)" {
+Properties {
+ _MainColor ("Main Color", Color) = (1,1,1,1)
+[HideInInspector]  _Color ("Main Color", Color) = (1,1,1,1)
+[HideInInspector]  _Scale ("Scale Compared to Maya", Float) = 0.01
+ _BloomFactor ("Bloom Factor", Float) = 0.25
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+ _Opaqueness ("Opaqueness", Range(0,1)) = 1
+ _VertexAlphaFactor ("Alpha From Vertex Factor (0: not use)", Range(0,1)) = 0
+ _EmissionScaler ("Emission Scaler", Range(1,10)) = 1
+ _EmissionFactor ("Emission Factor (lerp factor between original and emission color)", Range(0,1)) = 0
+ _EmissionFactorFromTexToggle ("Emission Factor From Tex Toggle", Range(0,1)) = 0
+ _EmissionBloomFactor ("Emission Bloom Factor", Float) = 1
+ _LightSpecColor ("Light Specular Color", Color) = (1,1,1,1)
+[HideInInspector]  _LightArea ("Light Area Threshold", Range(0,1)) = 0.51
+ _ShadowMultColor ("Shadow Multiply Color", Color) = (0.9,0.7,0.75,1)
+ _Shininess ("Specular Shininess", Range(0.1,100)) = 10
+ _SpecMulti ("Specular Multiply Factor", Range(0,1)) = 0.1
+ _OutlineWidth ("Outline Width", Range(0,100)) = 0.2
+ _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+[HideInInspector]  _MaxOutlineZOffset ("Max Outline Z Offset", Range(0,100)) = 1
+[HideInInspector]  _OutlineCamStart ("Outline Camera Adjustment Start Distance", Range(0,10000)) = 1000
+ _ClipPlane ("Clip Plane (Model Space)", Vector) = (0,0,0,0)
+ _FadeDistance ("Fade Start Distance", Range(0.1,10)) = 0.5
+ _FadeOffset ("Fade Start Offset", Range(0,10)) = 1
+[Toggle(SPECIAL_STATE)]  _SpecialState ("Special State", Float) = 0
+ _SPTex ("SP Tex", 2D) = "white" { }
+ _SPNoiseTex ("SP Noise Tex", 2D) = "white" { }
+ _SPNoiseScaler ("SP Noise Scaler", Range(0,10)) = 1
+ _SPIntensity ("SP Intensity", Range(0,1)) = 0.5
+ _SPTransition ("SP Transition", Range(0,1)) = 0
+ _SPTransitionColor ("SP Transition Color", Color) = (1,1,1,1)
+ _SPOutlineColor ("SP Outline Color", Color) = (1,1,1,1)
+ _SPTransitionEmissionScaler ("SP Transition Emission Scaler", Range(1,100)) = 1
+ _SPTransitionBloomFactor ("SP Transition Bloom Factor", Float) = 1
+[Toggle(EMISSION_OVERRIDE)]  _EmissionOverride ("Emission Override (Only store param, need to do overriding in script)", Float) = 0
+ _EOEmissionScaler ("Overriding Emission Scaler", Range(1,10)) = 1
+ _EOEmissionBloomFactor ("Overriding Emission Bloom Factor", Float) = 1
+}
+SubShader { 
+ LOD 200
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "OutlineType"="Complex" }
+ Pass {
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "OutlineType"="Complex" }
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 20057
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  Name "COMPLEX"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "OutlineType"="Complex" }
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 129423
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "OutlineType"="Complex" }
+  ColorMask A
+  GpuProgramID 138636
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 12
+}
+SubProgram "gles3 " {
+GpuProgramIndex 13
+}
+SubProgram "gles " {
+GpuProgramIndex 14
+}
+SubProgram "gles3 " {
+GpuProgramIndex 15
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

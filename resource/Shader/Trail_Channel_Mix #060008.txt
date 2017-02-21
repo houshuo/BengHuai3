@@ -1,0 +1,71 @@
+Shader "miHoYo/Trail/Channel Mix" {
+Properties {
+ _TintColor0 ("Tint Color0", Color) = (0.5,0.5,0.5,0.5)
+ _TintColor1 ("Tint Color1", Color) = (0.5,0.5,0.5,0.5)
+ _TintColor2 ("Tint Color2", Color) = (0.5,0.5,0.5,0.5)
+ _MainTex ("Particle Texture", 2D) = "white" { }
+ _AppearTime ("Appear Time", Range(0,1)) = 0
+ _VanishTime ("Vanish Time", Range(0,1)) = 0
+ _AlphaOverLife ("Alpha Over Life", Vector) = (0.197,0.815,0,0)
+ _CamForward ("Camera Forward", Vector) = (0,0,1,0)
+ _IsUseCamForward ("Is Use Camera Forward", Range(0,1)) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _EmissionScaler ("Emission Scaler", Range(0,50)) = 1
+[Toggle(DISTORTION)]  _Distortion ("Distortion", Float) = 0
+ _DTTex ("Distortion Tex", 2D) = "gray" { }
+ _DTIntensity ("Distortion Intensity", Range(0,10)) = 5
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent+1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "Distortion"="None" }
+ Pass {
+  Tags { "QUEUE"="Transparent+1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "Distortion"="None" }
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  ColorMask RGB
+  GpuProgramID 19448
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "CONSTANT_MAX"
+  Tags { "QUEUE"="Transparent+1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "Distortion"="None" }
+  ZWrite Off
+  Cull Off
+  Blend [_GlobalBloomMaxBlendSrc] [_GlobalBloomMaxBlendDst]
+ BlendOp [_GlobalBloomMaxBlendOp]
+  ColorMask A
+  GpuProgramID 76858
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

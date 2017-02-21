@@ -1,0 +1,129 @@
+Shader "miHoYo/Character/Simple_Emission_Opaque" {
+Properties {
+ _Color ("Main Color", Color) = (0.5,0.5,0.5,1)
+ _EmissionColor ("Emmisive Color", Color) = (0.5,0.5,0.5,1)
+ _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+ _Outline ("Outline Width", Float) = 0.02
+ _SpecMulti ("Specular Multiply", Float) = 1
+ _Shininess ("Shininess", Range(0.1,100)) = 2
+ _FadeDistance ("Fade Start Distance", Range(0.1,10)) = 0.5
+ _FadeOffset ("Fade Start Offset", Range(0,10)) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _MainTex ("Base (RGB)", 2D) = "white" { }
+ _Ramp ("Toon Ramp (RGB)", 2D) = "white" { }
+ _SpecRamp ("Specular Ramp (RGB)", 2D) = "black" { }
+ _Emission ("Emission", Range(1,100)) = 1
+ _EmissionBloomFactor ("Emission Bloom Factor", Float) = 1
+[Toggle(SPECIAL_STATE)]  _SpecialState ("Special State", Float) = 0
+ _SPTex ("SP Tex", 2D) = "white" { }
+ _SPNoiseTex ("SP Noise Tex", 2D) = "white" { }
+ _SPNoiseScaler ("SP Noise Scaler", Range(0,10)) = 1
+ _SPIntensity ("SP Intensity", Range(0,1)) = 0.5
+ _SPTransition ("SP Transition", Range(0,1)) = 0
+ _SPTransitionColor ("SP Transition Color", Color) = (1,1,1,1)
+ _SPOutlineColor ("SP Outline Color", Color) = (1,1,1,1)
+ _SPTransitionEmissionScaler ("SP Transition Emission Scaler", Range(1,100)) = 1
+ _SPTransitionBloomFactor ("SP Transition Bloom Factor", Float) = 1
+[Toggle(RIM_GLOW)]  _RimGlow ("Rim Glow", Float) = 0
+ _RGColor ("Rim Glow Color", Color) = (1,1,1,1)
+ _RGShininess ("Rim Glow Shininess", Float) = 1
+ _RGScale ("Rim Glow Scale", Float) = 1
+ _RGBias ("Rim Glow Bias", Float) = 0
+ _RGRatio ("Rim Glow Ratio", Range(0,1)) = 0.5
+ _RGBloomFactor ("Rim Glow Bloom Factor", Float) = 1
+[Toggle(DISTORTION)]  _Distortion ("Distortion", Float) = 0
+ _DTTex ("Distortion Tex", 2D) = "gray" { }
+ _DTIntensity ("Distortion Intensity", Range(1,9)) = 5
+ _DTPlaySpeed ("Distortion Play Speed", Float) = 0
+ _DTNormalDisplacment ("Distortion Normal Displacment", Float) = 0
+ _DTUVScaleInX ("Distortion UV Scale in X", Float) = 1
+ _DTUVScaleInY ("Distortion UV Scale in Y", Float) = 1
+ _DTFresnel ("Distortion Fresnel Params", Vector) = (1,1,0,0)
+[Toggle(TRANSPARENT)]  _Transparent ("Transparent", Float) = 0
+ _MainAlpha ("Main Alpha Range(0, 1)", Range(0,1)) = 1
+[HideInInspector]  _Opaqueness ("Opaqueness", Range(0,1)) = 1
+[HideInInspector]  _VertexAlphaFactor ("Alpha From Vertex Factor (0: not use)", Range(0,1)) = 0
+}
+SubShader { 
+ Tags { "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaqueness" "Distortion"="None" "OutlineType"="Simple" }
+ Pass {
+  Name "BASE"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaqueness" "Distortion"="None" "OutlineType"="Simple" }
+  GpuProgramID 48644
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+}
+ }
+ Pass {
+  Name "OUTLINE"
+  Tags { "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaqueness" "Distortion"="None" "OutlineType"="Simple" }
+  Cull Front
+  GpuProgramID 65697
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 12
+}
+SubProgram "gles3 " {
+GpuProgramIndex 13
+}
+SubProgram "gles " {
+GpuProgramIndex 14
+}
+SubProgram "gles3 " {
+GpuProgramIndex 15
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+}
+ }
+}
+}

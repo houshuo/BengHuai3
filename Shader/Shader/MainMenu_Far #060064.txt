@@ -1,0 +1,64 @@
+Shader "miHoYo/MainMenu/Far" {
+Properties {
+ _MainColor ("Main Color", Color) = (1,1,1,1)
+ _Scale ("Scale Compared to Maya", Float) = 0.01
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+ _EmissionScaler ("Emission Scaler", Range(1,10)) = 1
+ _VFogColor ("Vertical Fog Color", Color) = (0.5,0.5,0.5,1)
+ _VFogGradTex ("Vertical Fog Gradient Texture", 2D) = "Black" { }
+ _VFogIntensity ("Vertical Fog Intensity", Range(0,2)) = 1
+ _VFogStartPos ("Vertical Fog Start Position", Float) = 0
+ _VFogRange ("Vertical Fog Range", Range(0.1,10)) = 0
+ _OutlineWidth ("Outline Width", Range(0,1)) = 0.1
+ _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+}
+SubShader { 
+ Tags { "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaque" "Reflected"="Far" }
+ Pass {
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaque" "Reflected"="Far" }
+  ZTest Less
+  GpuProgramID 5460
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "SIMPLE_NORMAL"
+  Tags { "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaque" "Reflected"="Far" }
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 92583
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

@@ -1,0 +1,62 @@
+Shader "miHoYo/MainMenu/Lightning" {
+Properties {
+ _MainTex ("Particle Texture", 2D) = "white" { }
+ _TexOffsetX ("Texture Offset X", Float) = 0
+ _TexScaleX ("Texture Scale X", Float) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _EmissionScaler ("Emmision Scaler", Range(0,10)) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent+1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent+1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha One
+  ColorMask RGB
+  GpuProgramID 5925
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Tags { "QUEUE"="Transparent+1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha One
+ BlendOp [_GlobalBloomMaxBlendOp]
+  ColorMask A
+  GpuProgramID 77470
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

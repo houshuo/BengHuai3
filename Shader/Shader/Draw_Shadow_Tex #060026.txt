@@ -1,0 +1,28 @@
+Shader "miHoYo/Shadow/Draw Shadow" {
+SubShader { 
+ Tags { "IGNOREPROJECTOR"="true" "RenderType"="Opaque" }
+ Pass {
+  Tags { "IGNOREPROJECTOR"="true" "RenderType"="Opaque" }
+  ZTest False
+  ZWrite Off
+  GpuProgramID 50587
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

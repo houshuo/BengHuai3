@@ -1,0 +1,116 @@
+Shader "hidden/Common/Bloom" {
+Properties {
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+}
+SubShader { 
+ Pass {
+  Name "CONSTANT_REPLACE"
+  ColorMask A
+  GpuProgramID 64924
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "CONSTANT_REPLACE_NOCUTOFF"
+  ColorMask A
+  GpuProgramID 129704
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "CONSTANT_MAX"
+  Blend [_GlobalBloomMaxBlendSrc] [_GlobalBloomMaxBlendDst]
+ BlendOp [_GlobalBloomMaxBlendOp]
+  ColorMask A
+  GpuProgramID 133095
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "FROM_TEX"
+  ColorMask A
+  GpuProgramID 203040
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "FROM_TEX_CLIPPLANE"
+  ColorMask A
+  GpuProgramID 307683
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

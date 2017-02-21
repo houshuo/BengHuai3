@@ -1,0 +1,65 @@
+Shader "miHoYo/Light/Pseudo Projective Light" {
+Properties {
+ _TintColor ("Tint Color", Color) = (0.5,0.5,0.5,0.5)
+ _MainTex ("Main Texture", 2D) = "white" { }
+ _SpecularTex ("Specular Texture", 2D) = "grey" { }
+ _LightStrength ("Light Strength", Float) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha One
+  ColorMask RGB
+  Offset -1, 1
+  GpuProgramID 8443
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "CONSTANT_MAX"
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend [_GlobalBloomMaxBlendSrc] [_GlobalBloomMaxBlendDst]
+ BlendOp [_GlobalBloomMaxBlendOp]
+  ColorMask A
+  Offset -1, 1
+  GpuProgramID 128026
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

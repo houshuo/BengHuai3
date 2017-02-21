@@ -1,0 +1,32 @@
+Shader "Hidden/Internal-GUITextureClip" {
+Properties {
+ _MainTex ("Texture", any) = "white" { }
+}
+SubShader { 
+ Tags { "ForceSupported"="true" }
+ Pass {
+  Tags { "ForceSupported"="true" }
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 3281
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

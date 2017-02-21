@@ -1,0 +1,176 @@
+Shader "Hidden/Internal-PrePassCollectShadows" {
+Properties {
+ _ShadowMapTexture ("", any) = "" { }
+}
+SubShader { 
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 23332
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles " {
+GpuProgramIndex 1
+}
+SubProgram "gles3 " {
+GpuProgramIndex 2
+}
+SubProgram "gles " {
+GpuProgramIndex 3
+}
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles " {
+GpuProgramIndex 7
+}
+SubProgram "gles3 " {
+GpuProgramIndex 8
+}
+SubProgram "gles " {
+GpuProgramIndex 9
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 12
+}
+SubProgram "gles " {
+GpuProgramIndex 13
+}
+SubProgram "gles3 " {
+GpuProgramIndex 14
+}
+SubProgram "gles " {
+GpuProgramIndex 15
+}
+SubProgram "gles " {
+GpuProgramIndex 16
+}
+SubProgram "gles3 " {
+GpuProgramIndex 17
+}
+SubProgram "gles " {
+GpuProgramIndex 18
+}
+SubProgram "gles " {
+GpuProgramIndex 19
+}
+SubProgram "gles3 " {
+GpuProgramIndex 20
+}
+SubProgram "gles " {
+GpuProgramIndex 21
+}
+SubProgram "gles " {
+GpuProgramIndex 22
+}
+SubProgram "gles3 " {
+GpuProgramIndex 23
+}
+}
+ }
+}
+SubShader { 
+ Tags { "ShadowmapFilter"="PCF_5x5" }
+ Pass {
+  Tags { "ShadowmapFilter"="PCF_5x5" }
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 128839
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 24
+}
+SubProgram "gles " {
+GpuProgramIndex 25
+}
+SubProgram "gles3 " {
+GpuProgramIndex 26
+}
+SubProgram "gles " {
+GpuProgramIndex 27
+}
+SubProgram "gles " {
+GpuProgramIndex 28
+}
+SubProgram "gles3 " {
+GpuProgramIndex 29
+}
+SubProgram "gles " {
+GpuProgramIndex 30
+}
+SubProgram "gles " {
+GpuProgramIndex 31
+}
+SubProgram "gles3 " {
+GpuProgramIndex 32
+}
+SubProgram "gles " {
+GpuProgramIndex 33
+}
+SubProgram "gles " {
+GpuProgramIndex 34
+}
+SubProgram "gles3 " {
+GpuProgramIndex 35
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 12
+}
+SubProgram "gles " {
+GpuProgramIndex 13
+}
+SubProgram "gles3 " {
+GpuProgramIndex 14
+}
+SubProgram "gles " {
+GpuProgramIndex 15
+}
+SubProgram "gles " {
+GpuProgramIndex 16
+}
+SubProgram "gles3 " {
+GpuProgramIndex 17
+}
+SubProgram "gles " {
+GpuProgramIndex 18
+}
+SubProgram "gles " {
+GpuProgramIndex 19
+}
+SubProgram "gles3 " {
+GpuProgramIndex 20
+}
+SubProgram "gles " {
+GpuProgramIndex 21
+}
+SubProgram "gles " {
+GpuProgramIndex 22
+}
+SubProgram "gles3 " {
+GpuProgramIndex 23
+}
+}
+ }
+}
+Fallback Off
+}

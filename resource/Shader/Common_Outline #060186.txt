@@ -1,0 +1,93 @@
+Shader "hidden/Common/Outline" {
+SubShader { 
+ Pass {
+  Name "SIMPLE"
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 31816
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "SIMPLE_CLIPPLANE"
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 120191
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "SIMPLE_NORMAL"
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 140553
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "COMPLEX"
+  Tags { "LIGHTMODE"="ForwardBase" }
+  Cull Front
+  GpuProgramID 232323
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

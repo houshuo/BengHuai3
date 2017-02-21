@@ -1,0 +1,40 @@
+Shader "miHoYo/Footpring/On Sand" {
+Properties {
+ _NormalMap ("Normal Map", 2D) = "blue" { }
+ _ColorMask ("Color Mask", 2D) = "black" { }
+ _Color ("Color", Color) = (1,1,1,1)
+ _LightColor ("Light Color", Color) = (1,1,1,1)
+ _ShadowColor ("Shadow Color", Color) = (1,1,1,1)
+ _LightIntensity ("Light Intensity", Range(0,10)) = 1
+ _ShadowIntensity ("Shadow Intensity", Range(0,10)) = 1
+ _Opaqueness ("Opaqueness", Range(0,1)) = 0.75
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent-1" }
+ Pass {
+  Tags { "QUEUE"="Transparent-1" }
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  ColorMask RGB
+  Offset -1, -1
+  GpuProgramID 56924
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

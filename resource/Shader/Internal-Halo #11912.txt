@@ -1,0 +1,65 @@
+Shader "Hidden/Internal-Halo" {
+SubShader { 
+ Tags { "RenderType"="Overlay" }
+ Pass {
+  Tags { "RenderType"="Overlay" }
+  ZWrite Off
+  Cull Off
+  Blend OneMinusDstColor One
+  ColorMask RGB
+  GpuProgramID 31992
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+SubProgram "gles " {
+GpuProgramIndex 12
+}
+SubProgram "gles3 " {
+GpuProgramIndex 13
+}
+SubProgram "gles " {
+GpuProgramIndex 14
+}
+SubProgram "gles3 " {
+GpuProgramIndex 15
+}
+}
+ }
+}
+}

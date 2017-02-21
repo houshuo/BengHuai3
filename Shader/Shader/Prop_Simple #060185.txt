@@ -1,0 +1,33 @@
+Shader "miHoYo/Prop/Prop_Simple" {
+Properties {
+ _MainColor ("Main Color", Color) = (1,1,1,1)
+[HideInInspector]  _Color ("Main Color", Color) = (1,1,1,1)
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+}
+SubShader { 
+ LOD 200
+ Tags { "QUEUE"="Geometry" "RenderType"="Opaque" "OutlineType"="None" }
+ Pass {
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Geometry" "RenderType"="Opaque" "OutlineType"="None" }
+  GpuProgramID 19284
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

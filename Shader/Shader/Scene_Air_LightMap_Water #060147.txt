@@ -1,0 +1,41 @@
+Shader "miHoYo/Scene/AirEffect_LightMap_Water" {
+Properties {
+ _WaterColor ("Water Color", Color) = (1,0,0,1)
+ _LightMapIntensity ("Light Map Intensity", Float) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _Speed ("Speed", Range(0.001,2)) = 0.5
+ _Frequency ("Frequency", Range(1,100)) = 20
+ _Delta1 ("Delta1", Range(0,0.1)) = 0.01
+ _Delta2 ("Delta2", Range(0,0.1)) = 0.01
+ _WaterScale ("WaterScale", Range(0,10)) = 3
+ _MainIntensity ("MainIntensity", Range(0,5)) = 1
+ _MainTex ("Color Tex (RGB)", 2D) = "white" { }
+ _ShadowTex ("LightMap (RGB)", 2D) = "grey" { }
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Name "BASE"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 30701
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

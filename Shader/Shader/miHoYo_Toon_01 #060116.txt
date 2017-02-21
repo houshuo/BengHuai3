@@ -1,0 +1,65 @@
+Shader "miHoYo/Toon/Base_01" {
+Properties {
+ _Color ("Main Color", Color) = (0.5,0.5,0.5,1)
+ _EmissionColor ("Emmisive Color", Color) = (0.5,0.5,0.5,1)
+ _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+ _Outline ("Outline Width", Float) = 0.02
+ _SpecMulti ("Specular Multiply", Float) = 1
+ _Shininess ("Shininess", Float) = 2
+ _FadeDistance ("Fade Start Distance", Float) = 0.5
+ _FadeOffset ("Fade Start Offset", Float) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _MainTex ("Base (RGB)", 2D) = "white" { }
+ _Ramp ("Toon Ramp (RGB)", 2D) = "white" { }
+ _SpecRamp ("Specular Ramp (RGB)", 2D) = "black" { }
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Name "BASE"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 6863
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "OUTLINE"
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 88938
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

@@ -1,0 +1,137 @@
+Shader "miHoYo/Common/AlphaMask_01" {
+Properties {
+ _MainTex ("Base (RGB)", 2D) = "white" { }
+ _AlphaMask ("Alpha Mask (A)", 2D) = "white" { }
+}
+SubShader { 
+ LOD 200
+ Tags { "RenderType"="Transparent" }
+ Pass {
+  Name "FORWARD"
+  Tags { "LIGHTMODE"="ForwardBase" "SHADOWSUPPORT"="true" "RenderType"="Transparent" }
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 10094
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles " {
+GpuProgramIndex 3
+}
+SubProgram "gles3 " {
+GpuProgramIndex 4
+}
+SubProgram "gles " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+SubProgram "gles " {
+GpuProgramIndex 12
+}
+SubProgram "gles " {
+GpuProgramIndex 13
+}
+SubProgram "gles3 " {
+GpuProgramIndex 14
+}
+}
+ }
+ Pass {
+  Name "FORWARD"
+  Tags { "LIGHTMODE"="ForwardAdd" "RenderType"="Transparent" }
+  ZWrite Off
+  Blend One One
+  GpuProgramID 124312
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 15
+}
+SubProgram "gles3 " {
+GpuProgramIndex 16
+}
+SubProgram "gles " {
+GpuProgramIndex 17
+}
+SubProgram "gles3 " {
+GpuProgramIndex 18
+}
+SubProgram "gles " {
+GpuProgramIndex 19
+}
+SubProgram "gles3 " {
+GpuProgramIndex 20
+}
+SubProgram "gles " {
+GpuProgramIndex 21
+}
+SubProgram "gles3 " {
+GpuProgramIndex 22
+}
+SubProgram "gles " {
+GpuProgramIndex 23
+}
+SubProgram "gles3 " {
+GpuProgramIndex 24
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 25
+}
+SubProgram "gles3 " {
+GpuProgramIndex 26
+}
+SubProgram "gles " {
+GpuProgramIndex 27
+}
+SubProgram "gles3 " {
+GpuProgramIndex 28
+}
+SubProgram "gles " {
+GpuProgramIndex 29
+}
+SubProgram "gles3 " {
+GpuProgramIndex 30
+}
+SubProgram "gles " {
+GpuProgramIndex 31
+}
+SubProgram "gles3 " {
+GpuProgramIndex 32
+}
+SubProgram "gles " {
+GpuProgramIndex 33
+}
+SubProgram "gles3 " {
+GpuProgramIndex 34
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

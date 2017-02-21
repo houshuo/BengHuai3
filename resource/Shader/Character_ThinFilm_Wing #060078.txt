@@ -1,0 +1,69 @@
+Shader "miHoYo/Character/ThinFilm_Wing" {
+Properties {
+ _Color ("Main Color", Color) = (1,1,1,1)
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+ _FringeTex ("Fringe Tex (RGB)", 2D) = "white" { }
+ _FringeBumpTex ("Frige Bump Tex", 2D) = "gray" { }
+ _Opaqueness ("Opaqueness", Range(0,1)) = 1
+[HideInInspector]  _OpaquenessScalerWithoutHDR ("", Float) = 1
+ _EmissionScaler ("Emission Scaler", Range(1,20)) = 1
+[HideInInspector]  _EmissionScalerScalerWithoutHDR ("", Float) = 1
+ _FringeIntensity ("Fringe Intensity", Range(0,10)) = 1
+ _FringeBumpScaler ("Fringe Bump Scaler", Range(0,10)) = 1
+ _FringeRangeScaler ("Fringe Range Scaler", Range(0,10)) = 1
+ _FringeRangeOffset ("Fringe Range Offset", Range(0,1)) = 0
+ _FringeViewDistance ("Fringe View Distance", Float) = 5
+ _FringeFresnel ("Fringe Fresnel", Vector) = (1,1,0,0)
+ _FadeDistance ("Fade Start Distance", Range(0.1,10)) = 0.5
+ _FadeOffset ("Fade Start Offset", Range(0,10)) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "OutlineType"="None" }
+ Pass {
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "OutlineType"="None" }
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 40973
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "OutlineType"="None" }
+  Cull Off
+  ColorMask A
+  GpuProgramID 80595
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

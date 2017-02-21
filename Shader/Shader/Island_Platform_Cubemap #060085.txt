@@ -1,0 +1,41 @@
+Shader "miHoYo/Island/Platform Cubemap" {
+Properties {
+ _BaseColor ("Base Color (RGB)", Color) = (1,1,1,1)
+ _LightMapIntensity ("Light Map Intensity", Float) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _MainTex ("Color Tex (RGB)", 2D) = "white" { }
+ _ShadowTex ("LightMap (RGB)", 2D) = "grey" { }
+ _EnvTex ("Environment Texture (RGB)", CUBE) = "grey" { }
+ _Reflectivity ("Reflectivity", Range(0,5)) = 1
+ _CamDistRatio ("Camera Distance Ratio", Range(0,1)) = 0.1
+ _CamHeightOffset ("Camera Height", Float) = 5
+ _CamRotate ("Camera Rotate", Range(-3.14159,3.14159)) = 0
+ _PolygonOffset ("Polygon Offset", Float) = 0
+}
+SubShader { 
+ Tags { "QUEUE"="Geometry" "RenderType"="Opaque" }
+ Pass {
+  Name "BASE"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Geometry" "RenderType"="Opaque" }
+  Offset 0, [_PolygonOffset]
+  GpuProgramID 16314
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

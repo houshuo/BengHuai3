@@ -1,0 +1,132 @@
+Shader "Hidden/Distortion/Distortion_Map" {
+SubShader { 
+ Tags { "Distortion"="Texture" }
+ Pass {
+  Tags { "Distortion"="Texture" }
+  ZWrite Off
+  Cull Off
+  Blend One OneMinusSrcAlpha
+  GpuProgramID 17350
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "Distortion"="Texture_Top" }
+ Pass {
+  Tags { "Distortion"="Texture_Top" }
+  ZTest False
+  ZWrite Off
+  Cull Off
+  Blend One OneMinusSrcAlpha
+  GpuProgramID 92851
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "Distortion"="Trail" }
+ Pass {
+  Tags { "Distortion"="Trail" }
+  ZWrite Off
+  Cull Off
+  Blend One OneMinusSrcAlpha
+  GpuProgramID 181756
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "Distortion"="Normal" }
+ Pass {
+  Tags { "Distortion"="Normal" }
+  ZWrite Off
+  Cull Off
+  Blend One OneMinusSrcAlpha
+  GpuProgramID 228401
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "Distortion"="Character" }
+ Pass {
+  Tags { "Distortion"="Character" }
+  ZWrite Off
+  Blend One OneMinusSrcAlpha
+  GpuProgramID 309314
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

@@ -1,0 +1,44 @@
+Shader "miHoYo/Scene/Cloud2D" {
+Properties {
+ _TintColor ("Tint Color", Color) = (0.5,0.5,0.5,0.5)
+ _MainTex ("Particle Texture", 2D) = "white" { }
+ _TileSize ("Tile Size", Vector) = (1,1,0,1)
+ _EmitterWidth ("Emitter Width", Float) = 1
+ _AspectRatio ("Aspect Ratio", Float) = 1
+ _BrightColor ("Bright Color", Color) = (1,1,1,1)
+ _DarkColor ("Dark Color", Color) = (1,1,1,1)
+ _SecondDarkColor ("Second Dark Color", Color) = (1,1,1,1)
+ _RimColor ("Rim Color", Color) = (1,1,1,1)
+ _EmissionScaler ("Emission Scaler", Range(0,50)) = 1
+ _FlashColor ("Flash Color", Color) = (1,1,1,1)
+ _FlashAttenFactors ("Flash Attenuation Factors", Vector) = (1,0,0,0)
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha, One Zero
+  ColorMask RGB
+  GpuProgramID 26602
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

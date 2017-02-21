@@ -1,0 +1,68 @@
+Shader "miHoYo/Scene/Water" {
+Properties {
+ _Color ("Color", Color) = (1,1,1,1)
+ _RefColor ("Reflection Color", Color) = (1,1,1,1)
+ _ReflectionTex ("Reflection", 2D) = "white" { }
+ _WaterColor ("Water Color (used when disable realtime reflection)", Color) = (0,0,0,0)
+ _NormalMap ("Normal Map", 2D) = "white" { }
+ _CausticMap ("Caustic Map", 2D) = "white" { }
+ _Distortion ("Distortion", Float) = 1
+ _BumpVelocity0 ("Bump Velocity 0", Vector) = (0,0,0,0)
+ _BumpScale0 ("Bump Scale 0", Float) = 1
+ _BumpVelocity1 ("Bump Velocity 1", Vector) = (0,0,0,0)
+ _BumpScale1 ("Bump Scale 1", Float) = 1
+ _Caustic ("Caustic", Float) = 1
+ _CausticVelocity ("Caustic Velocity", Vector) = (0,0,0,0)
+ _CausticScale ("Caustic Scale", Float) = 1
+ _RefractionColor ("Fraction Color", Color) = (1,1,1,1)
+ _FresnelFactors ("Fresnel Factors", Vector) = (1,1,0,0)
+ _BloomFactor ("Bloom Factor", Float) = 1
+}
+SubShader { 
+ LOD 300
+ Tags { "RenderType"="Opaque" }
+ Pass {
+  Tags { "RenderType"="Opaque" }
+  GpuProgramID 26518
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "RenderType"="Opaque" }
+ Pass {
+  Tags { "RenderType"="Opaque" }
+  GpuProgramID 116090
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

@@ -1,0 +1,32 @@
+Shader "miHoYo/Simple/Unit(Dual Face)" {
+Properties {
+ _TintColor ("Tint Color", Color) = (0.5,0.5,0.5,0.5)
+ _MainTex ("Particle Texture", 2D) = "white" { }
+ _EmissionScaler ("Emission Scaler", Range(0,50)) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaque" }
+ Pass {
+  Tags { "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaque" }
+  Cull Off
+  GpuProgramID 16841
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

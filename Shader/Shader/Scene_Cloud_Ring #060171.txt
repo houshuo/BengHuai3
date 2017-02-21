@@ -1,0 +1,47 @@
+Shader "miHoYo/Scene/Cloud Ring" {
+Properties {
+ _TintColor ("Tint Color", Color) = (0.5,0.5,0.5,0.5)
+ _MainTex ("Particle Texture", 2D) = "white" { }
+ _AspectRatio ("Aspect Ratio", Float) = 1
+ _TexRColor ("Texture Color For R Channel", Color) = (1,1,1,1)
+ _TexGColor ("Texture Color For G Channel", Color) = (1,1,1,1)
+ _TexBColor ("Texture Color For B Channel", Color) = (1,1,1,1)
+ _CloudMaskIntensity ("Cloud Mask Intensity", Range(0,1)) = 1
+ _EmissionScaler ("Emission Scaler", Range(0,50)) = 1
+ _GradFrontColor ("Gradiant Front Color", Color) = (1,1,1,1)
+ _GradBackColor ("Gradiant Back Color", Color) = (1,1,1,1)
+ _GradLocationY ("Gradiant LocationY", Range(-5,1)) = 0
+ _GradHighY ("Gradiant HighY", Range(0.01,10)) = 1
+ _GradLocationRotateX ("Gradiant Location RotateX", Range(-1,1)) = 0
+ _GradLocationX ("Gradiant LocationX", Range(-5,1)) = 0
+ _GradHighX ("Gradiant HighX", Range(0.01,10)) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Geometry-1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Geometry-1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZTest Always
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha, One Zero
+  ColorMask RGB
+  GpuProgramID 51815
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

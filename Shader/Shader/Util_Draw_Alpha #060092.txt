@@ -1,0 +1,129 @@
+Shader "Hidden/Util/Draw_Alpha" {
+Properties {
+ _Color ("Main Color", Color) = (1,1,1,1)
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+ _Opaqueness ("Opaqueness", Range(0,1)) = 1
+ _VertexAlphaFactor ("Alpha From Vertex Factor (0: not use)", Range(0,1)) = 0
+}
+SubShader { 
+ Tags { "OutlineType"="None" }
+ Pass {
+  Tags { "OutlineType"="None" }
+  Blend One One
+ BlendOp Max
+  GpuProgramID 59175
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "OutlineType"="Simple" }
+ Pass {
+  Tags { "OutlineType"="Simple" }
+  Blend One One
+ BlendOp Max
+  GpuProgramID 74207
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Tags { "OutlineType"="Simple" }
+  Cull Front
+  Blend One One
+ BlendOp Max
+  GpuProgramID 177355
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "OutlineType"="Complex" }
+ Pass {
+  Tags { "OutlineType"="Complex" }
+  Blend One One
+ BlendOp Max
+  GpuProgramID 247017
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Tags { "OutlineType"="Complex" }
+  Cull Front
+  Blend One One
+ BlendOp Max
+  GpuProgramID 268665
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

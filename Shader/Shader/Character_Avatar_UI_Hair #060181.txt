@@ -1,0 +1,109 @@
+Shader "miHoYo/Character/Avatar UI Hair" {
+Properties {
+ _Color ("Main Color", Color) = (1,1,1,1)
+[HideInInspector]  _Scale ("Scale Compared to Maya", Float) = 0.01
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+ _LightMapTex ("Light Map Tex (RGB)", 2D) = "gray" { }
+ _LightSpecColor ("Light Specular Color", Color) = (1,1,1,1)
+[HideInInspector]  _LightArea ("Light Area Threshold", Range(0,1)) = 0.51
+[HideInInspector]  _SecondShadow ("Second Shadow Threshold", Range(0,1)) = 0.51
+ _FirstShadowMultColor ("First Shadow Multiply Color", Color) = (0.9,0.7,0.75,1)
+ _SecondShadowMultColor ("Second Shadow Multiply Color", Color) = (0.75,0.6,0.65,1)
+ _Shininess ("Specular Shininess", Range(0.1,100)) = 10
+ _SpecMulti ("Specular Multiply Factor", Range(0,1)) = 0.1
+ _OutlineWidth ("Outline Width", Range(0,100)) = 0.2
+ _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+ _MaxOutlineZOffset ("Max Outline Z Offset", Range(0,100)) = 1
+ _OutlineCamStart ("Outline Camera Adjustment Start Distance", Range(0,10000)) = 1000
+ _DirectionalFadeDirection ("Directional Fade Direction (world space)", Vector) = (0,-1,0,0)
+ _DirectionalFadeOffset ("Directional Fade Offset (object space)", Float) = 0
+ _DirectionalFadeRange ("Directional Fade Range", Range(0.01,2)) = 0.1
+ _DirectionalFadeValue ("Directional Fade Value", Range(0,1)) = 1
+[HideInInspector]  _Opaqueness ("Opaqueness", Range(0,1)) = 1
+[HideInInspector]  _VertexAlphaFactor ("Alpha From Vertex Factor (0: not use)", Range(0,1)) = 0
+}
+SubShader { 
+ LOD 200
+ Tags { "QUEUE"="Transparent+1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "Distortion"="None" "OutlineType"="Complex" "Reflected"="Reflected" }
+ Pass {
+  Name "COMPLEX"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent+1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "Distortion"="None" "OutlineType"="Complex" "Reflected"="Reflected" }
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 31731
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "COMPLEX"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent+1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "Distortion"="None" "OutlineType"="Complex" "Reflected"="Reflected" }
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 87192
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "CONSTANT_REPLACE_NOCUTOFF"
+  Tags { "QUEUE"="Transparent+1" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "Distortion"="None" "OutlineType"="Complex" "Reflected"="Reflected" }
+  ColorMask A
+  GpuProgramID 182134
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+}
+ }
+}
+}

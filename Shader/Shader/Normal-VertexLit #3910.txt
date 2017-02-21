@@ -1,0 +1,130 @@
+Shader "Legacy Shaders/VertexLit" {
+Properties {
+ _Color ("Main Color", Color) = (1,1,1,1)
+ _SpecColor ("Spec Color", Color) = (1,1,1,1)
+ _Emission ("Emissive Color", Color) = (0,0,0,0)
+ _Shininess ("Shininess", Range(0.01,1)) = 0.7
+ _MainTex ("Base (RGB)", 2D) = "white" { }
+}
+SubShader { 
+ LOD 100
+ Tags { "RenderType"="Opaque" }
+ Pass {
+  Tags { "LIGHTMODE"="Vertex" "RenderType"="Opaque" }
+  GpuProgramID 85859
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+}
+ }
+ Pass {
+  Tags { "LIGHTMODE"="VertexLM" "RenderType"="Opaque" }
+  GpuProgramID 155416
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 12
+}
+SubProgram "gles3 " {
+GpuProgramIndex 13
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  Tags { "LIGHTMODE"="VertexLMRGBM" "RenderType"="Opaque" }
+  GpuProgramID 249241
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 14
+}
+SubProgram "gles3 " {
+GpuProgramIndex 15
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  Name "SHADOWCASTER"
+  Tags { "LIGHTMODE"="SHADOWCASTER" "SHADOWSUPPORT"="true" "RenderType"="Opaque" }
+  GpuProgramID 33459
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 16
+}
+SubProgram "gles3 " {
+GpuProgramIndex 17
+}
+SubProgram "gles " {
+GpuProgramIndex 18
+}
+SubProgram "gles3 " {
+GpuProgramIndex 19
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 20
+}
+SubProgram "gles3 " {
+GpuProgramIndex 21
+}
+SubProgram "gles " {
+GpuProgramIndex 22
+}
+SubProgram "gles3 " {
+GpuProgramIndex 23
+}
+}
+ }
+}
+}

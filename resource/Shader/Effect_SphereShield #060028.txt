@@ -1,0 +1,130 @@
+Shader "miHoYo/Effect/Sphere Shield" {
+Properties {
+ _Color ("Main Color", Color) = (1,1,1,1)
+ _RingTex ("Ring Texture 1", 2D) = "black" { }
+ _RingColor ("Ring Color", Color) = (1,1,1,1)
+ _RingUScale ("Ring U Scale", Float) = 1
+ _RingVScale ("Ring V Scale", Float) = 1
+ _RingUFadeWidth ("Ring U Fade Width", Float) = 0
+ _RingCrossLightIntensity ("Ring Cross Light Intensity", Float) = 50
+ _RingCrossLightShininess ("Ring Cross Light Shininess", Float) = 2
+ _RingEulerAngles1 ("Ring Euler Angles 1", Vector) = (0,0,0,0)
+ _RingEulerAngles2 ("Ring Euler Angles 2", Vector) = (0,0,0,0)
+ _RingEulerAngles3 ("Ring Euler Angles 3", Vector) = (0,0,0,0)
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _FresnelParams ("Fresnel", Vector) = (1,0,0,0)
+ _Culling ("Culling (0: Off, 1: Front, 2: Back)", Float) = 2
+ _CellShrink ("Cell Shrink", Float) = 0
+ _CellRimShininess ("Cell Rim Shininess", Float) = 8
+ _CellRimIntensity ("Cell Rim Intensity", Float) = 0.4
+ _HitPosition ("Hit Position (local space)", Vector) = (0,0,0,0)
+ _HitDistRange ("Hit Dist Range", Float) = 0
+ _HitDistSmoothRange ("Hit Dist Smooth Range", Float) = 0
+ _HitAnmStartTime ("Hit Animation Start Time", Float) = 0
+ _HitAnmEndTime ("Hit Animation End Time", Float) = 0
+ _BandPosition ("Band Position (rotate dir and angle)", Vector) = (1,1,0,1.57)
+ _BandWidth ("Band Width", Float) = 0
+ _BandIntensity ("Band Intensity", Float) = 0
+ _Params ("Params", Vector) = (0,0,0,0)
+ _Params2 ("Params2", Vector) = (0,0,0,0)
+ _Params3 ("Params3", Vector) = (0,0,0,0)
+}
+SubShader { 
+ LOD 200
+ Tags { "QUEUE"="Transparent+1" "RenderType"="Transparent" "OutlineType"="None" }
+ Pass {
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent+1" "RenderType"="Transparent" "OutlineType"="None" }
+  ZWrite Off
+  Cull Front
+  Blend One One
+  GpuProgramID 14989
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent+1" "RenderType"="Transparent" "OutlineType"="None" }
+  ZWrite Off
+  Blend One One
+  GpuProgramID 130005
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "RenderType"="Transparent" "OutlineType"="None" }
+ Pass {
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent" "RenderType"="Transparent" "OutlineType"="None" }
+  ZWrite Off
+  Cull Front
+  Blend One One
+  GpuProgramID 171892
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent" "RenderType"="Transparent" "OutlineType"="None" }
+  ZWrite Off
+  Blend One One
+  GpuProgramID 258647
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

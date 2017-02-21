@@ -1,0 +1,68 @@
+Shader "miHoYo/Billboard/Start Light" {
+Properties {
+ _TintColor ("Tint Color", Color) = (0.5,0.5,0.5,0.5)
+ _MainTex ("Particle Texture", 2D) = "white" { }
+ _SizeScaleX ("Size Scale X", Float) = 1
+ _SizeScaleY ("Size Scale Y", Float) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _EmissionScaler ("Emission Scaler", Range(0,50)) = 1
+ _CullBack ("Cull back (0: off, 1: on)", Float) = 0
+ _RotateSpeed ("Rotate Speed", Float) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend One OneMinusSrcColor
+  ColorMask RGB
+  Offset 1, -1000
+  GpuProgramID 4930
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "CONSTANT_MAX"
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend [_GlobalBloomMaxBlendSrc] [_GlobalBloomMaxBlendDst]
+ BlendOp [_GlobalBloomMaxBlendOp]
+  ColorMask A
+  Offset 1, -1000
+  GpuProgramID 104538
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

@@ -1,0 +1,32 @@
+Shader "miHoYo/Trail/Scrolling" {
+Properties {
+ _Color ("Main Color", Color) = (1,1,1,1)
+ _ScrollU ("Scroll U", Float) = 1
+ _ScrollV ("Scroll V", Float) = 1
+ _MainTex ("Base (RGB) Trans (A)", 2D) = "white" { }
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 23604
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

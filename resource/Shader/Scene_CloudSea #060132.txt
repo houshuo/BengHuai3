@@ -1,0 +1,47 @@
+Shader "miHoYo/Scene/CloudSea" {
+Properties {
+ _Tex1 ("Tex 1", 2D) = "white" { }
+ _TexRColor1 ("Texture Color For R Channel 1", Color) = (1,1,1,1)
+ _TexGColor1 ("Texture Color For G Channel 1", Color) = (1,1,1,1)
+ _TexBColor1 ("Texture Color For B Channel 1", Color) = (1,1,1,1)
+ _Velocity1 ("Velocity 1", Float) = 0
+ _Tex2 ("Tex 2", 2D) = "white" { }
+ _TexRColor2 ("Texture Color For R Channel 2", Color) = (1,1,1,1)
+ _TexGColor2 ("Texture Color For G Channel 2", Color) = (1,1,1,1)
+ _TexBColor2 ("Texture Color For B Channel 2", Color) = (1,1,1,1)
+ _Velocity2 ("Velocity 2", Float) = 0
+ _SunDirAngle ("Sun Direction Angle", Range(0,6.283)) = 0
+ _SunDistance ("Sun Distance", Range(0,10)) = 1
+ _GradFrontColor ("Gradiant Front Color", Color) = (1,1,1,1)
+ _GradBackColor ("Gradiant Back Color", Color) = (1,1,1,1)
+ _GradRangeScale ("Gradiant Range Scale", Float) = 1
+ _PerspectiveAdjConst ("Perspective Adjust Constant", Float) = 1
+ _PerspectiveAdjLinear ("Perspective Adjust Linear", Float) = 1
+ _CloudMaskIntensity ("Cloud Mask Intensity", Range(0,1)) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _EmissionScaler ("Emission Scaler", Float) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Background" "RenderType"="Opaque" }
+ Pass {
+  Tags { "QUEUE"="Background" "RenderType"="Opaque" }
+  GpuProgramID 14628
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

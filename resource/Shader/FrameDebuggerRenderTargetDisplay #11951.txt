@@ -1,0 +1,55 @@
+Shader "Hidden/FrameDebuggerRenderTargetDisplay" {
+Properties {
+ _MainTex ("", any) = "white" { }
+}
+SubShader { 
+ Tags { "ForceSupported"="true" }
+ Pass {
+  Tags { "ForceSupported"="true" }
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 54904
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Tags { "ForceSupported"="true" }
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 76201
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

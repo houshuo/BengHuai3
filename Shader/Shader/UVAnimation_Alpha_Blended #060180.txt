@@ -1,0 +1,60 @@
+Shader "miHoYo/UV Animation/Alpha Blended" {
+Properties {
+ _MainTex ("Particle Texture", 2D) = "white" { }
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _Scaler ("Emmision Scaler", Range(0,10)) = 1
+ _PolygonOffset ("Polygon Offset", Float) = 0
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  Offset 0, [_PolygonOffset]
+  GpuProgramID 40550
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Blend [_GlobalBloomMaxBlendSrc] [_GlobalBloomMaxBlendDst]
+ BlendOp [_GlobalBloomMaxBlendOp]
+  ColorMask A
+  Offset 0, [_PolygonOffset]
+  GpuProgramID 110676
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

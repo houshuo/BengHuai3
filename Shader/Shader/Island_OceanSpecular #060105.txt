@@ -1,0 +1,40 @@
+Shader "miHoYo/Island/Ocean Specular(Only use for island)" {
+Properties {
+ _Color ("Color", Color) = (1,1,1,1)
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+ _NormalMap1 ("Normal Map 1", 2D) = "white" { }
+ _NormalMap2 ("Normal Map 2", 2D) = "white" { }
+ _BumpVelocity1 ("Bump Velocity 1", Vector) = (0,0,0,0)
+ _BumpVelocity2 ("Bump Velocity 2", Vector) = (0,0,0,0)
+ _LightDir1 ("Light Dir 1", Vector) = (0,1,-1,0)
+ _LightDir2 ("Light Dir 2", Vector) = (0,1,-1,0)
+ _Shininess1 ("Specular Shininess 1", Float) = 10
+ _Shininess2 ("Specular Shininess 2", Float) = 10
+ _SpecularColor ("Specular Color", Color) = (1,1,1,1)
+ _BloomFactor ("Bloom Factor", Float) = 1
+}
+SubShader { 
+ LOD 100
+ Tags { "RenderType"="Opaque" }
+ Pass {
+  Tags { "RenderType"="Opaque" }
+  GpuProgramID 50470
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

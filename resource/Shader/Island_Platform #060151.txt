@@ -1,0 +1,40 @@
+Shader "miHoYo/Island/Platform" {
+Properties {
+ _Color ("Main Color", Color) = (1,1,1,1)
+ _Scale ("Scale Compared to Maya", Float) = 0.01
+ _BloomFactor ("Bloom Factor", Float) = 0.25
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+ _ShadowTex ("LightMap (RGB)", 2D) = "grey" { }
+ _LightMapIntensity ("Light Map Intensity", Float) = 1
+ _EmissionScaler ("Emission Scaler", Range(1,10)) = 1
+[Toggle]  _EmissionToggle ("Emission Toggle", Float) = 0
+ _EmissionBloomFactor ("Emission Bloom Factor", Float) = 1
+ _PolygonOffset ("Polygon Offset", Float) = 0
+}
+SubShader { 
+ LOD 200
+ Tags { "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaque" "OutlineType"="None" }
+ Pass {
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaque" "OutlineType"="None" }
+  Offset 0, [_PolygonOffset]
+  GpuProgramID 40228
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

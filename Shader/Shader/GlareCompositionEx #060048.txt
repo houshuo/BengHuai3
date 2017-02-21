@@ -1,0 +1,289 @@
+Shader "Hidden/GlareCompositionEx" {
+Properties {
+ _MainTex ("Level0", 2D) = "" { }
+ _MainTex1 ("Level1", 2D) = "" { }
+ _DistortionTex ("Level2", 2D) = "gray" { }
+ _RadialBlurTex ("Radial Blur", 2D) = "" { }
+ _EdgeThresholdMin ("Edge threshold min", Float) = 0.125
+ _EdgeThreshold ("Edge Threshold", Float) = 0.25
+ _EdgeSharpness ("Edge sharpness", Float) = 4
+ _RadialBlurParam ("Radial blur param", Vector) = (0,0,0,0)
+}
+SubShader { 
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 36841
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  Name "AA"
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 116322
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  Name "AAHQ"
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 151678
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 12
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 13
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 205917
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 14
+}
+SubProgram "gles3 " {
+GpuProgramIndex 15
+}
+SubProgram "gles " {
+GpuProgramIndex 16
+}
+SubProgram "gles3 " {
+GpuProgramIndex 17
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 306734
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 18
+}
+SubProgram "gles3 " {
+GpuProgramIndex 19
+}
+SubProgram "gles " {
+GpuProgramIndex 20
+}
+SubProgram "gles3 " {
+GpuProgramIndex 21
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 390607
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 22
+}
+SubProgram "gles3 " {
+GpuProgramIndex 23
+}
+SubProgram "gles " {
+GpuProgramIndex 24
+}
+SubProgram "gles3 " {
+GpuProgramIndex 25
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 437498
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 26
+}
+SubProgram "gles3 " {
+GpuProgramIndex 27
+}
+SubProgram "gles " {
+GpuProgramIndex 28
+}
+SubProgram "gles3 " {
+GpuProgramIndex 29
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 497669
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 30
+}
+SubProgram "gles3 " {
+GpuProgramIndex 31
+}
+SubProgram "gles " {
+GpuProgramIndex 32
+}
+SubProgram "gles3 " {
+GpuProgramIndex 33
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+}
+Fallback Off
+}

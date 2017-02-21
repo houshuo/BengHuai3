@@ -1,0 +1,33 @@
+Shader "miHoYo/Distortion/Distortion_Effect_Tex" {
+Properties {
+ _DistortionTex ("Distortion Texture", 2D) = "gray" { }
+ _DistortionIntensity ("Distortion Intensity", Range(0,10)) = 5
+}
+SubShader { 
+ Tags { "Distortion"="Texture" }
+ Pass {
+  Tags { "Distortion"="Texture" }
+  ZTest False
+  ZWrite Off
+  ColorMask 0
+  GpuProgramID 683159
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

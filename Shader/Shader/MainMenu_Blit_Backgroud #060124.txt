@@ -1,0 +1,28 @@
+Shader "miHoYo/MainMenu/Blit_Background" {
+SubShader { 
+ Tags { "QUEUE"="Background" }
+ Pass {
+  Tags { "QUEUE"="Background" }
+  ZTest False
+  ZWrite Off
+  Cull Off
+  GpuProgramID 17597
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

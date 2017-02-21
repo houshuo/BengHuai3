@@ -1,0 +1,33 @@
+Shader "Hidden/Internal-GUITexture" {
+Properties {
+ _MainTex ("Texture", any) = "" { }
+}
+SubShader { 
+ Tags { "ForceSupported"="true" "RenderType"="Overlay" }
+ Pass {
+  Tags { "ForceSupported"="true" "RenderType"="Overlay" }
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 60335
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

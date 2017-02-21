@@ -1,0 +1,60 @@
+Shader "miHoYo/Toon Dual Face Emission Outline" {
+Properties {
+ _EmissionColor ("Main Emission Color(128 is standard)", Color) = (1,1,1,1)
+ _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+ _OutlineMax ("Outline Max", Float) = 0.005
+ _OutlineMin ("Outline Min", Float) = 0.002
+ _Outline ("Outline width(0.002 - 0.005)", Float) = 0.005
+ _MainTex ("Base (RGB)", 2D) = "white" { }
+}
+SubShader { 
+ Pass {
+  Name "BASE"
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 60178
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "OUTLINE"
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  ColorMask RGB
+  GpuProgramID 111230
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

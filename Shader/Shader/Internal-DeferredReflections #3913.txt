@@ -1,0 +1,64 @@
+Shader "Hidden/Internal-DeferredReflections" {
+Properties {
+ _SrcBlend ("", Float) = 1
+ _DstBlend ("", Float) = 1
+}
+SubShader { 
+ Pass {
+  ZWrite Off
+  Blend [_SrcBlend] [_DstBlend]
+  GpuProgramID 34194
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Blend [_SrcBlend] [_DstBlend]
+  GpuProgramID 127983
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+}
+ }
+}
+Fallback Off
+}

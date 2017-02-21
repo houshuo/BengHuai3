@@ -1,0 +1,31 @@
+Shader "miHoYo/CameraEffect/WitchTime_01" {
+Properties {
+[PerRendererData]  _MainTex ("Base (RGB)", 2D) = "white" { }
+ _Color ("Tint", Color) = (1,1,1,1)
+}
+SubShader { 
+ Pass {
+  ZWrite Off
+  Cull Off
+  Blend One OneMinusSrcAlpha
+  GpuProgramID 1279
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

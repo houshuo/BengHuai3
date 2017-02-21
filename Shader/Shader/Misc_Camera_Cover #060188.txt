@@ -1,0 +1,31 @@
+Shader "miHoYo/Misc/Camera_Cover" {
+Properties {
+ _Color ("Main Color", Color) = (1,1,1,1)
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent+4" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent+4" "RenderType"="Transparent" }
+  ZTest Always
+  ZWrite Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 47849
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

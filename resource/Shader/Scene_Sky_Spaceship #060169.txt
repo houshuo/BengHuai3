@@ -1,0 +1,52 @@
+Shader "miHoYo/Scene/Sky Spaceship" {
+Properties {
+ _MainTex ("Main Texture", 2D) = "white" { }
+ _TexRColor ("Texture Color For R Channel", Color) = (1,1,1,1)
+ _TexGColor ("Texture Color For G Channel", Color) = (1,1,1,1)
+ _TexBColor ("Texture Color For B Channel", Color) = (1,1,1,1)
+ _TexXLocation ("Texture Location X", Range(0,1)) = 0
+ _TexYLocation ("Texture Location Y", Range(0,1)) = 0.5
+ _TexScaleX ("Texture ScaleX", Range(0.01,2)) = 1
+ _TexScaleY ("Texture ScaleY", Range(0.01,2)) = 1
+ _CloudMaskIntensity ("Cloud Mask Intensity", Range(0,1)) = 1
+ _SecTex ("Second Texture", 2D) = "white" { }
+ _SecTexXLocation ("Second Texture Location X", Range(0,1)) = 0
+ _SecTexYLocation ("Second Texture Location Y", Range(0,1)) = 0.5
+ _SecTexHigh ("Second Texture High", Range(0.01,1)) = 1
+ _SecTexEmission ("Second Texture Emission", Range(0,10)) = 1
+ _GradBottomColor ("Gradiant Bottom Color", Color) = (1,1,1,1)
+ _GradTopColor ("Gradiant Top Color", Color) = (1,1,1,1)
+ _GradFrontColor ("Gradiant Front Color", Color) = (1,1,1,1)
+ _GradBackColor ("Gradiant Back Color", Color) = (1,1,1,1)
+ _GradLocationY ("Gradiant LocationY", Range(-5,1)) = 0
+ _GradHighY ("Gradiant HighY", Range(0.01,10)) = 1
+ _GradLocationX ("Gradiant LocationX", Range(-5,1)) = 0
+ _GradHighX ("Gradiant HighX", Range(0.01,10)) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Background" "RenderType"="Opaque" }
+ Pass {
+  Tags { "QUEUE"="Background" "RenderType"="Opaque" }
+  ZWrite Off
+  GpuProgramID 40829
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

@@ -1,0 +1,71 @@
+Shader "miHoYo/MainMenu/Near" {
+Properties {
+ _MainColor ("Main Color", Color) = (1,1,1,1)
+ _Scale ("Scale Compared to Maya", Float) = 0.01
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+ _NormalMap ("Normal Map", 2D) = "green" { }
+ _BrushedNormalMap ("Brushed Normal Map", 2D) = "green" { }
+ _ReflectionMap ("Reflection Map", 2D) = "white" { }
+ _PointLightPos ("Point Light Position", Vector) = (0,0,0,1)
+ _PointLightParams ("Point Light Parameters", Vector) = (1,1,1,1)
+ _PointLightColor ("Point Light Color", Color) = (1,1,1,1)
+ _Shininess ("Shininess", Float) = 2
+ _FresnelParams ("Fresnel Parameters", Vector) = (5,1,0,0)
+ _OutlineWidth ("Outline Width", Range(0,1)) = 0.1
+ _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+ _Reflectivity ("Reflectivity", Range(0,1)) = 0.5
+ _EnvMapOffsetX ("Environment Map Offset X", Range(-0.5,0.5)) = 0
+ _EnvMapOffsetY ("Environment Map Offset Y", Range(-0.5,0.5)) = 0
+ _BrushScale ("Brush Scale", Range(0,1)) = 1
+ _BrushUVScale ("Brush UV Scale", Range(0,2)) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaque" }
+ Pass {
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaque" }
+  ZTest Less
+  GpuProgramID 56361
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "SIMPLE_NORMAL"
+  Tags { "QUEUE"="Geometry" "IGNOREPROJECTOR"="true" "RenderType"="Opaque" }
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 122991
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

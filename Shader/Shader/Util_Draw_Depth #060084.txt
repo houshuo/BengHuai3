@@ -1,0 +1,24 @@
+Shader "Hidden/Util/Draw_Depth" {
+SubShader { 
+ Pass {
+  ColorMask 0
+  GpuProgramID 27799
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

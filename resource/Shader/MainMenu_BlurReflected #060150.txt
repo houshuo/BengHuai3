@@ -1,0 +1,36 @@
+Shader "miHoYo/MainMenu/BlurReflected" {
+Properties {
+ _MainTex ("Base (RGB)", 2D) = "" { }
+[HideInInspector]  _offset_4_1 ("", Vector) = (0,0,0,0)
+[HideInInspector]  _offset_4_2 ("", Vector) = (0,0,0,0)
+[HideInInspector]  _weights ("", Vector) = (0,0,0,0)
+[HideInInspector]  _offset_4_3 ("", Vector) = (0,0,0,0)
+[HideInInspector]  _offset_4_4 ("", Vector) = (0,0,0,0)
+[HideInInspector]  _weights2 ("", Vector) = (0,0,0,0)
+}
+SubShader { 
+ Pass {
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  GpuProgramID 57336
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

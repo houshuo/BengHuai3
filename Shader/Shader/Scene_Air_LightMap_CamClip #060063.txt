@@ -1,0 +1,58 @@
+Shader "miHoYo/Scene/AirEffect_LightMap_CamClip" {
+Properties {
+ _LightMapIntensity ("Light Map Intensity", Float) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _FadeDistance ("Fade Start Distance", Range(0.1,10)) = 0.5
+ _FadeOffset ("Fade Start Offset", Range(0,10)) = 1
+ _MainTex ("Color Tex (RGB)", 2D) = "white" { }
+ _ShadowTex ("LightMap (RGB)", 2D) = "grey" { }
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "RenderType"="Transparent" }
+ Pass {
+  Name "BASE"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent" "RenderType"="Transparent" }
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 25209
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "CONSTANT_REPLACE"
+  Tags { "QUEUE"="Transparent" "RenderType"="Transparent" }
+  ColorMask A
+  GpuProgramID 72119
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

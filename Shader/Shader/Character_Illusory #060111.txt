@@ -1,0 +1,79 @@
+Shader "miHoYo/Character/Illusory" {
+Properties {
+ _Color ("Main Color", Color) = (1,1,1,0.5)
+ _ColorScaler ("Color Scaler", Float) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _Opaqueness ("Opaqueness", Range(0,1)) = 0.5
+ _RimShininess ("Rim Shininess", Range(0.1,100)) = 10
+ _RimThreshold ("Rim Threshold", Range(0,1)) = 0.5
+ _RimIntensity ("Rim Intensity", Range(0,10)) = 0.5
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "RenderType"="Transparent" }
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 19647
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Tags { "QUEUE"="Transparent" "RenderType"="Transparent" }
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 126636
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Name "CONSTANT_REPLACE_NOCUTOFF"
+  Tags { "QUEUE"="Transparent" "RenderType"="Transparent" }
+  ColorMask A
+  GpuProgramID 142671
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

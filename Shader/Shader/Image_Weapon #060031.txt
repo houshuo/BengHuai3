@@ -1,0 +1,63 @@
+Shader "miHoYo/UI/Image Weapon" {
+Properties {
+[PerRendererData]  _MainTex ("Sprite Texture", 2D) = "white" { }
+ _Color ("Tint", Color) = (1,1,1,1)
+ _ColorScaler ("Color Scaler", Float) = 1
+ _StencilComp ("Stencil Comparison", Float) = 8
+ _Stencil ("Stencil ID", Float) = 0
+ _StencilOp ("Stencil Operation", Float) = 0
+ _StencilWriteMask ("Stencil Write Mask", Float) = 255
+ _StencilReadMask ("Stencil Read Mask", Float) = 255
+[Toggle(RECT_MASK)]  _RectMask ("Rect Mask", Float) = 0
+ _RMRect ("Rect Mask Rect", Vector) = (0,0,1,1)
+ _RMTransitWidth ("Rect Mask Transit Width", Vector) = (0,0,0,0)
+ _ColorMask ("Color Mask", Float) = 15
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "PreviewType"="Plane" "CanUseSpriteAtlas"="true" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "PreviewType"="Plane" "CanUseSpriteAtlas"="true" }
+  ZTest [unity_GUIZTestMode]
+  ZWrite Off
+  Cull Off
+  Stencil {
+   Ref [_Stencil]
+   ReadMask [_StencilReadMask]
+   WriteMask [_StencilWriteMask]
+   Comp [_StencilComp]
+   Pass [_StencilOp]
+  }
+  Blend One OneMinusSrcAlpha
+  ColorMask [_ColorMask]
+  GpuProgramID 60729
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+}
+}

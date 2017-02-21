@@ -1,0 +1,77 @@
+Shader "miHoYo/Toon Dual Face Transparent Emission Outline" {
+Properties {
+ _MainTex ("Main Tex", 2D) = "white" { }
+ _MainAlpha ("Main Alpha(0-1.0)", Range(0,1)) = 0.5
+ _EmissionColor ("Main Emission Color(128 is standard)", Color) = (1,1,1,1)
+ _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+ _OutlineMax ("Outline Max", Float) = 0.005
+ _OutlineMin ("Outline Min", Float) = 0.002
+ _Outline ("Outline width(0.002-0.005)", Float) = 0.005
+ _OutlineAlpha ("Outline Alpha(0-1.0)", Range(0,1)) = 0.5
+}
+SubShader { 
+ LOD 200
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Name "BASE"
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  ColorMask RGB
+  GpuProgramID 39710
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+ }
+ Pass {
+  Name "OUTLINE"
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  ColorMask RGB
+  GpuProgramID 126610
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

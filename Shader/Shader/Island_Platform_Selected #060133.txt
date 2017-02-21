@@ -1,0 +1,63 @@
+Shader "miHoYo/Island/Platform Selected" {
+Properties {
+[HideInInspector]  _Color ("", Color) = (1,1,1,1)
+[HideInInspector]  _Scale ("Scale Compared to Maya", Float) = 0.01
+ _BloomFactor ("Bloom Factor", Float) = 0.25
+ _OutlineWidth ("Outline Width", Range(0,100)) = 0.2
+ _OutlineColor ("Outline Color", Color) = (0,0,0,1)
+ _Opaqueness ("Outline Opaqueness", Range(0,1)) = 1
+ _EmissionScaler ("Emission Scaler", Range(1,10)) = 1
+}
+SubShader { 
+ LOD 200
+ Tags { "QUEUE"="transparent+500" "RenderType"="Transparent" "OutlineType"="Simple" }
+ Pass {
+  Tags { "QUEUE"="transparent+500" "RenderType"="Transparent" "OutlineType"="Simple" }
+  ZTest False
+  ZWrite Off
+  Cull Front
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 56356
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Tags { "QUEUE"="transparent+500" "RenderType"="Transparent" "OutlineType"="Simple" }
+  ZTest False
+  ZWrite Off
+  ColorMask A
+  GpuProgramID 85985
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

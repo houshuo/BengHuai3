@@ -1,0 +1,31 @@
+Shader "miHoYo/Scene/AirEffect_VertexColor_CullBack" {
+Properties {
+ _MainTex ("Color Tex (RGB)", 2D) = "white" { }
+ _BloomFactor ("Bloom Factor", Float) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Geometry" "RenderType"="Opaque" }
+ Pass {
+  Name "BASE"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Geometry" "RenderType"="Opaque" }
+  GpuProgramID 8246
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

@@ -1,0 +1,30 @@
+Shader "Hidden/Internal-Flare" {
+SubShader { 
+ Tags { "RenderType"="Overlay" }
+ Pass {
+  Tags { "RenderType"="Overlay" }
+  ZTest Always
+  ZWrite Off
+  Cull Off
+  Blend One One
+  ColorMask RGB
+  GpuProgramID 33804
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

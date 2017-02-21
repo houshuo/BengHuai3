@@ -1,0 +1,239 @@
+Shader "Hidden/Camera-DepthNormalTexture" {
+Properties {
+ _MainTex ("", 2D) = "white" { }
+ _Cutoff ("", Float) = 0.5
+ _Color ("", Color) = (1,1,1,1)
+}
+SubShader { 
+ Tags { "RenderType"="Opaque" }
+ Pass {
+  Tags { "RenderType"="Opaque" }
+  GpuProgramID 37153
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "RenderType"="TransparentCutout" }
+ Pass {
+  Tags { "RenderType"="TransparentCutout" }
+  GpuProgramID 106902
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "RenderType"="TreeBark" }
+ Pass {
+  Tags { "RenderType"="TreeBark" }
+  GpuProgramID 171880
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "RenderType"="TreeLeaf" }
+ Pass {
+  Tags { "RenderType"="TreeLeaf" }
+  GpuProgramID 248790
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "DisableBatching"="true" "RenderType"="TreeOpaque" }
+ Pass {
+  Tags { "DisableBatching"="true" "RenderType"="TreeOpaque" }
+  GpuProgramID 270309
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "DisableBatching"="true" "RenderType"="TreeTransparentCutout" }
+ Pass {
+  Tags { "DisableBatching"="true" "RenderType"="TreeTransparentCutout" }
+  GpuProgramID 374526
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 12
+}
+SubProgram "gles3 " {
+GpuProgramIndex 13
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+ Pass {
+  Tags { "DisableBatching"="true" "RenderType"="TreeTransparentCutout" }
+  Cull Front
+  GpuProgramID 416529
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 14
+}
+SubProgram "gles3 " {
+GpuProgramIndex 15
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "RenderType"="TreeBillboard" }
+ Pass {
+  Tags { "RenderType"="TreeBillboard" }
+  Cull Off
+  GpuProgramID 510283
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 16
+}
+SubProgram "gles3 " {
+GpuProgramIndex 17
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "RenderType"="GrassBillboard" }
+ Pass {
+  Tags { "RenderType"="GrassBillboard" }
+  Cull Off
+  GpuProgramID 543493
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 18
+}
+SubProgram "gles3 " {
+GpuProgramIndex 19
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "RenderType"="Grass" }
+ Pass {
+  Tags { "RenderType"="Grass" }
+  Cull Off
+  GpuProgramID 615206
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 20
+}
+SubProgram "gles3 " {
+GpuProgramIndex 21
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback Off
+}

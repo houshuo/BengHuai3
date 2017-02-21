@@ -1,0 +1,33 @@
+Shader "miHoYo/Scene/AirEffect_VertexColor_CullOff" {
+Properties {
+ _MainTex ("Color Tex (RGB)", 2D) = "white" { }
+ _BloomFactor ("Bloom Factor", Float) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Geometry" "RenderType"="Transparent" }
+ Pass {
+  Name "BASE"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Geometry" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  GpuProgramID 22084
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

@@ -1,0 +1,37 @@
+Shader "miHoYo/Scene/Texture_Waterfall" {
+Properties {
+ _MainTex ("Particle Texture", 2D) = "white" { }
+ _TintColor0 ("Tint Color0", Color) = (0.5,0.5,0.5,0.5)
+ _TintColor1 ("Tint Color1", Color) = (0.5,0.5,0.5,0.5)
+ _TintColor2 ("Tint Color2", Color) = (0.5,0.5,0.5,0.5)
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _EmissionScaler ("Emmision Scaler", Range(0,10)) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 14884
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

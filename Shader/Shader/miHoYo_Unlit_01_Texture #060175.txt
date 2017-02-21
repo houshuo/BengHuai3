@@ -1,0 +1,33 @@
+Shader "miHoYo/Unlit/Texture_01" {
+Properties {
+ _MainTex ("Base (RGB)", 2D) = "white" { }
+ _FadeDistance ("Fade Start Distance", Float) = 0.5
+ _FadeOffset ("Fade Start Offset", Float) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "RenderType"="Transparent" }
+ Pass {
+  Name "BASE"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent" "RenderType"="Transparent" }
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 28573
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

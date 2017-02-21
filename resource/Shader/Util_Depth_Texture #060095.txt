@@ -1,0 +1,25 @@
+Shader "Hidden/Util/Depth_Texture" {
+SubShader { 
+ Pass {
+  ZTest False
+  ZWrite Off
+  GpuProgramID 64588
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

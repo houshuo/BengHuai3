@@ -1,0 +1,42 @@
+Shader "miHoYo/Scene/Grass (Wind)" {
+Properties {
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _MainTex ("Base (RGB) Trans (A)", 2D) = "white" { }
+ _Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
+ _Culling ("Culling (0: Off, 1: Front, 2: Back)", Float) = 2
+ _WindMagnitude ("Wind Magnitude", Float) = 0
+ _WindMagnitudeLimit ("Wind Magnitude Limit", Float) = 0.1
+ _WindFrequency ("Wind Frequency", Float) = 1
+ _WindWaveVelocity ("Wind Wave Velocity", Float) = 1
+ _WindDirection ("Wind Direction", Vector) = (1,0,0,0)
+ _WindMultiMagnitude ("Wind Multi-Magnitude", Vector) = (1,0.5,0.25,0.125)
+ _WindMultiFrequency ("Wind Multi-Frequency", Vector) = (1.975,0.793,0.375,0.193)
+ _WindMultiWaveVelocity ("Wind Multi-Wave Velocity", Vector) = (1,1,1,1)
+ _RadialWind1 ("Radial Wind 1", Vector) = (0,0,0,1)
+}
+SubShader { 
+ LOD 100
+ Tags { "QUEUE"="AlphaTest" "RenderType"="TransparentCutout" }
+ Pass {
+  Tags { "QUEUE"="AlphaTest" "RenderType"="TransparentCutout" }
+  Cull [_Culling]
+  GpuProgramID 51399
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

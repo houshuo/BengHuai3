@@ -1,0 +1,93 @@
+Shader "miHoYo/Particles/Layer0/Channel Mix" {
+Properties {
+ _TintColor0 ("Tint Color0", Color) = (0.5,0.5,0.5,0.5)
+ _TintColor1 ("Tint Color1", Color) = (0.5,0.5,0.5,0.5)
+ _TintColor2 ("Tint Color2", Color) = (0.5,0.5,0.5,0.5)
+ _MainTex ("Particle Texture", 2D) = "white" { }
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _EmissionScaler ("Emission Scaler", Range(0,50)) = 1
+[Toggle(TEXTURE_SCALE)]  _TextureScale ("Texture Scale", Float) = 0
+ _TSAspectRatio ("Texture Aspect Ratio (width : height)", Float) = 1
+[Toggle(DISTORTION)]  _Distortion ("Distortion", Float) = 0
+ _DistortionTex ("Distortion Tex", 2D) = "gray" { }
+ _DistortionIntensity ("Distortion Intensity", Range(0,10)) = 5
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "Distortion"="None" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "Distortion"="None" }
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  ColorMask RGB
+  GpuProgramID 44373
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  Name "CONSTANT_MAX"
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "Distortion"="None" }
+  ZWrite Off
+  Cull Off
+  Blend [_GlobalBloomMaxBlendSrc] [_GlobalBloomMaxBlendDst]
+ BlendOp [_GlobalBloomMaxBlendOp]
+  ColorMask A
+  GpuProgramID 88051
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

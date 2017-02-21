@@ -1,0 +1,106 @@
+Shader "miHoYo/Prop/Prop_TowSide" {
+Properties {
+ _MainColor ("Main Color", Color) = (1,1,1,1)
+[HideInInspector]  _Color ("Main Color", Color) = (1,1,1,1)
+ _Scale ("Scale Compared to Maya", Float) = 0.01
+ _BloomFactor ("Bloom Factor", Float) = 0.25
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+ _Opaqueness ("Opaqueness", Range(0,1)) = 1
+ _EmissionScaler ("Emission Scaler", Range(1,10)) = 1
+ _EmissionFactor ("Emission Factor", Range(0,1)) = 0
+ _LightSpecColor ("Light Specular Color", Color) = (1,1,1,1)
+[HideInInspector]  _LightArea ("Light Area Threshold", Range(0,1)) = 0.51
+ _ShadowMultColor ("Shadow Multiply Color", Color) = (0.9,0.7,0.75,1)
+ _Shininess ("Specular Shininess", Range(0.1,100)) = 10
+ _SpecMulti ("Specular Multiply Factor", Range(0,1)) = 0.1
+ _ClipPlane ("Clip Plane", Vector) = (0,0,0,0)
+ _FadeDistance ("Fade Start Distance", Range(0.1,10)) = 0.5
+ _FadeOffset ("Fade Start Offset", Range(0,10)) = 1
+[Toggle(SPECIAL_STATE)]  _SpecialState ("Special State", Float) = 0
+ _SPTex ("SP Tex", 2D) = "white" { }
+ _SPNoiseTex ("SP Noise Tex", 2D) = "white" { }
+ _SPNoiseScaler ("SP Noise Scaler", Range(0,10)) = 1
+ _SPIntensity ("SP Intensity", Range(0,1)) = 0.5
+ _SPTransition ("SP Transition", Range(0,1)) = 0
+ _SPTransitionColor ("SP Transition Color", Color) = (1,1,1,1)
+ _SPTransitionEmissionScaler ("SP Transition Emission Scaler", Range(1,100)) = 1
+ _SPTransitionBloomFactor ("SP Transition Bloom Factor", Float) = 1
+}
+SubShader { 
+ LOD 200
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "OutlineType"="None" }
+ Pass {
+  Name "TWO_SIDE"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "OutlineType"="None" }
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 2794
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  Name "CONSTANT_MAX"
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "OutlineType"="None" }
+  Cull Off
+  Blend [_GlobalBloomMaxBlendSrc] [_GlobalBloomMaxBlendDst]
+ BlendOp [_GlobalBloomMaxBlendOp]
+  ColorMask A
+  GpuProgramID 92824
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

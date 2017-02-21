@@ -1,0 +1,42 @@
+Shader "miHoYo/Scene/AirEffect_LightMap_Refract" {
+Properties {
+ _CausticColor ("Caustic Color", Color) = (1,0,0,1)
+ _LightMapIntensity ("Light Map Intensity", Float) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _Speed ("Speed", Range(0.001,2)) = 0.5
+ _Frequency ("Frequency", Range(1,200)) = 20
+ _Delta ("Delta", Range(0,0.1)) = 0.01
+ _PhaseOffset ("PhaseOffset", Range(0,6)) = 0
+ _CausticScale ("CausticScale", Range(0,10)) = 3
+ _MainIntensity ("MainIntensity", Range(0,1)) = 1
+ _CausticIntensity ("CausticIntensity", Range(0,5)) = 1
+ _MainTex ("Color Tex (RGB)", 2D) = "white" { }
+ _CausticTex ("CausticMap (RGB)", 2D) = "black" { }
+ _ShadowTex ("LightMap (RGB)", 2D) = "grey" { }
+}
+SubShader { 
+ Tags { "QUEUE"="Geometry" "RenderType"="Opaque" }
+ Pass {
+  Name "BASE"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Geometry" "RenderType"="Opaque" }
+  GpuProgramID 20049
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

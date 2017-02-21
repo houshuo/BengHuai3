@@ -1,0 +1,29 @@
+Shader "Hidden/MainMenu/Composition" {
+SubShader { 
+ Pass {
+  ZTest False
+  ZWrite Off
+  Cull Off
+  Stencil {
+   Comp GEqual
+  }
+  GpuProgramID 42906
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

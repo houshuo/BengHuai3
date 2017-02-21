@@ -1,0 +1,35 @@
+Shader "miHoYo/Scene/FogEffect_Texture_ChannelMix_EmissionMask" {
+Properties {
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _TintColor ("Tint Color", Color) = (0.5,0.5,0.5,0.5)
+ _EmissionScaler ("Emission Scaler", Float) = 1
+ _MainTex ("Base (RGB) Trans (A)", 2D) = "white" { }
+ _MaskTex ("Mask (RGB) Trans (A)", 2D) = "white" { }
+}
+SubShader { 
+ LOD 100
+ Tags { "QUEUE"="Transparent-1" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent-1" "RenderType"="Transparent" }
+  Cull Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  GpuProgramID 14521
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

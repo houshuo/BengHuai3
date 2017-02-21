@@ -1,0 +1,34 @@
+Shader "miHoYo/Shadow/Paste_Shadow" {
+Properties {
+ _MainColor ("Main Color", Color) = (0.05,0.24,0.35,1)
+ _Opaqueness ("Opaqueness", Range(0,1)) = 0.75
+ _Cookie ("Cookie", 2D) = "white" { }
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" }
+  ZWrite Off
+  Blend SrcAlpha OneMinusSrcAlpha
+  ColorMask RGB
+  Offset -4, -1
+  GpuProgramID 40602
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

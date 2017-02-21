@@ -1,0 +1,34 @@
+Shader "miHoYo/MainMenu/Screen" {
+Properties {
+ _MainTex ("Particle Texture", 2D) = "white" { }
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _Scaler ("Emmision Scaler", Range(0,10)) = 1
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend One One
+  GpuProgramID 13141
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+Fallback "Diffuse"
+}

@@ -1,0 +1,191 @@
+Shader "Legacy Shaders/Diffuse" {
+Properties {
+ _Color ("Main Color", Color) = (1,1,1,1)
+ _MainTex ("Base (RGB)", 2D) = "white" { }
+}
+SubShader { 
+ LOD 200
+ Tags { "RenderType"="Opaque" }
+ Pass {
+  Name "FORWARD"
+  Tags { "LIGHTMODE"="ForwardBase" "SHADOWSUPPORT"="true" "RenderType"="Opaque" }
+  GpuProgramID 6689
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles " {
+GpuProgramIndex 3
+}
+SubProgram "gles3 " {
+GpuProgramIndex 4
+}
+SubProgram "gles " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+SubProgram "gles " {
+GpuProgramIndex 12
+}
+SubProgram "gles " {
+GpuProgramIndex 13
+}
+SubProgram "gles3 " {
+GpuProgramIndex 14
+}
+}
+ }
+ Pass {
+  Name "FORWARD"
+  Tags { "LIGHTMODE"="ForwardAdd" "RenderType"="Opaque" }
+  ZWrite Off
+  Blend One One
+  GpuProgramID 79369
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 15
+}
+SubProgram "gles3 " {
+GpuProgramIndex 16
+}
+SubProgram "gles " {
+GpuProgramIndex 17
+}
+SubProgram "gles3 " {
+GpuProgramIndex 18
+}
+SubProgram "gles " {
+GpuProgramIndex 19
+}
+SubProgram "gles3 " {
+GpuProgramIndex 20
+}
+SubProgram "gles " {
+GpuProgramIndex 21
+}
+SubProgram "gles3 " {
+GpuProgramIndex 22
+}
+SubProgram "gles " {
+GpuProgramIndex 23
+}
+SubProgram "gles3 " {
+GpuProgramIndex 24
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 25
+}
+SubProgram "gles3 " {
+GpuProgramIndex 26
+}
+SubProgram "gles " {
+GpuProgramIndex 27
+}
+SubProgram "gles3 " {
+GpuProgramIndex 28
+}
+SubProgram "gles " {
+GpuProgramIndex 29
+}
+SubProgram "gles3 " {
+GpuProgramIndex 30
+}
+SubProgram "gles " {
+GpuProgramIndex 31
+}
+SubProgram "gles3 " {
+GpuProgramIndex 32
+}
+SubProgram "gles " {
+GpuProgramIndex 33
+}
+SubProgram "gles3 " {
+GpuProgramIndex 34
+}
+}
+ }
+ Pass {
+  Name "PREPASS"
+  Tags { "LIGHTMODE"="PrePassBase" "RenderType"="Opaque" }
+  GpuProgramID 161489
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 35
+}
+SubProgram "gles3 " {
+GpuProgramIndex 36
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 37
+}
+SubProgram "gles3 " {
+GpuProgramIndex 38
+}
+}
+ }
+ Pass {
+  Name "PREPASS"
+  Tags { "LIGHTMODE"="PrePassFinal" "RenderType"="Opaque" }
+  ZWrite Off
+  GpuProgramID 200775
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 39
+}
+SubProgram "gles3 " {
+GpuProgramIndex 40
+}
+SubProgram "gles " {
+GpuProgramIndex 41
+}
+SubProgram "gles3 " {
+GpuProgramIndex 42
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 43
+}
+SubProgram "gles3 " {
+GpuProgramIndex 44
+}
+SubProgram "gles " {
+GpuProgramIndex 45
+}
+SubProgram "gles3 " {
+GpuProgramIndex 46
+}
+}
+ }
+}
+Fallback "Legacy Shaders/VertexLit"
+}

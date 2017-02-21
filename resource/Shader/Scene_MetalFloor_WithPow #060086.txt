@@ -1,0 +1,63 @@
+Shader "miHoYo/Scene/Metal Floor (With Pow)" {
+Properties {
+ _Color ("Color", Color) = (1,1,1,1)
+ _MainTex ("Main Tex (RGB)", 2D) = "white" { }
+ _ShadowTex ("LightMap (RGB)", 2D) = "white" { }
+ _LightMapIntensity ("Light Map Intensity", Float) = 1
+ _ReflectionTex ("Reflection", 2D) = "white" { }
+ _ReflectionEmissionAdjust ("Reflection Emission Adjust", Float) = 1
+ _FresnelParams ("Fresnel Parameters", Vector) = (1,1,0,0)
+ _BrushedNormalMap ("Brushed Normal Map", 2D) = "green" { }
+ _BrushScaleX ("Brush Scale X", Range(0,1)) = 1
+ _BrushScaleY ("Brush Scale Y", Range(0,1)) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+}
+SubShader { 
+ LOD 300
+ Tags { "RenderType"="Opaque" }
+ Pass {
+  Tags { "RenderType"="Opaque" }
+  GpuProgramID 42382
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+SubShader { 
+ Tags { "QUEUE"="Geometry" "RenderType"="Opaque" }
+ Pass {
+  Name "BASE"
+  Tags { "LIGHTMODE"="ForwardBase" "QUEUE"="Geometry" "RenderType"="Opaque" }
+  GpuProgramID 112343
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

@@ -1,0 +1,35 @@
+Shader "miHoYo/Scene/FogEffect_Texture_Additive" {
+Properties {
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _EmissionScaler ("Emission Scaler", Float) = 1
+ _MainTex ("Base (RGB) Trans (A)", 2D) = "white" { }
+ _MainColor ("Main Color", Color) = (1,1,1,1)
+}
+SubShader { 
+ LOD 100
+ Tags { "QUEUE"="Transparent" "RenderType"="Transparent" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "RenderType"="Transparent" }
+  ZWrite Off
+  Cull Off
+  Blend SrcAlpha One
+  GpuProgramID 45193
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

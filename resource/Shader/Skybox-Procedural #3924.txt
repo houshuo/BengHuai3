@@ -1,0 +1,96 @@
+Shader "Skybox/Procedural" {
+Properties {
+[KeywordEnum(None, Simple, High Quality)]  _SunDisk ("Sun", Float) = 2
+ _SunSize ("Sun Size", Range(0,1)) = 0.04
+ _AtmosphereThickness ("Atmoshpere Thickness", Range(0,5)) = 1
+ _SkyTint ("Sky Tint", Color) = (0.5,0.5,0.5,1)
+ _GroundColor ("Ground", Color) = (0.369,0.349,0.341,1)
+ _Exposure ("Exposure", Range(0,8)) = 1.3
+}
+SubShader { 
+ Tags { "QUEUE"="Background" "RenderType"="Background" "PreviewType"="Skybox" }
+ Pass {
+  Tags { "QUEUE"="Background" "RenderType"="Background" "PreviewType"="Skybox" }
+  ZWrite Off
+  Cull Off
+  GpuProgramID 1581
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+SubProgram "gles " {
+GpuProgramIndex 10
+}
+SubProgram "gles3 " {
+GpuProgramIndex 11
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 12
+}
+SubProgram "gles3 " {
+GpuProgramIndex 13
+}
+SubProgram "gles " {
+GpuProgramIndex 14
+}
+SubProgram "gles3 " {
+GpuProgramIndex 15
+}
+SubProgram "gles " {
+GpuProgramIndex 16
+}
+SubProgram "gles3 " {
+GpuProgramIndex 17
+}
+SubProgram "gles " {
+GpuProgramIndex 18
+}
+SubProgram "gles3 " {
+GpuProgramIndex 19
+}
+SubProgram "gles " {
+GpuProgramIndex 20
+}
+SubProgram "gles3 " {
+GpuProgramIndex 21
+}
+SubProgram "gles " {
+GpuProgramIndex 22
+}
+SubProgram "gles3 " {
+GpuProgramIndex 23
+}
+}
+ }
+}
+Fallback Off
+}

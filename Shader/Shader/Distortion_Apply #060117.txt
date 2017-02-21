@@ -1,0 +1,31 @@
+Shader "Hidden/Distortion/Distortion_Apply" {
+Properties {
+ _MainTex ("Main Texture", 2D) = "white" { }
+ _DistortionTex ("Distortion Texture", 2D) = "white" { }
+ _DistortionIntensity ("Distortion Intensity", Range(1,20)) = 1
+}
+SubShader { 
+ Pass {
+  ZTest False
+  ZWrite Off
+  Cull Off
+  GpuProgramID 51151
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

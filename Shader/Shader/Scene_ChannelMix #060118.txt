@@ -1,0 +1,33 @@
+Shader "miHoYo/Scene/Texture_ChannelMix" {
+Properties {
+ _BloomFactor ("Bloom Factor", Float) = 1
+ _TintColor0 ("Tint Color0", Color) = (0.5,0.5,0.5,0.5)
+ _TintColor1 ("Tint Color1", Color) = (0.5,0.5,0.5,0.5)
+ _TintColor2 ("Tint Color2", Color) = (0.5,0.5,0.5,0.5)
+ _EmissionScaler ("Emission Scaler", Float) = 1
+ _MainTex ("Base (RGB) Trans (A)", 2D) = "white" { }
+}
+SubShader { 
+ Tags { "RenderType"="Opaque" }
+ Pass {
+  Tags { "RenderType"="Opaque" }
+  GpuProgramID 62061
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+ }
+}
+}

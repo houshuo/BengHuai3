@@ -1,0 +1,105 @@
+Shader "miHoYo/UI/Image TV Distortion" {
+Properties {
+[PerRendererData]  _MainTex ("Sprite Texture", 2D) = "white" { }
+ _Color ("Tint", Color) = (1,1,1,1)
+ _StencilComp ("Stencil Comparison", Float) = 8
+ _Stencil ("Stencil ID", Float) = 0
+ _StencilOp ("Stencil Operation", Float) = 0
+ _StencilWriteMask ("Stencil Write Mask", Float) = 255
+ _StencilReadMask ("Stencil Read Mask", Float) = 255
+ _ColorMask ("Color Mask", Float) = 15
+ _BackgroundColor ("Barckground Color (RGBA)", Color) = (0,0,0,1)
+ _AdjustColor ("Adjust Color (RGB)", Color) = (0,0,0,1)
+ _DistortionTex ("Distortion Tex (RG)", 2D) = "gray" { }
+ _DistortionFrequency ("Distortion Frequency", Float) = 1
+ _DistortionAmplitude ("Distortion Amplitude", Range(0,1)) = 1
+ _DistortionAnmSpeed ("Distortion Animation Speed", Float) = 1
+ _ColorScatterStrength ("Color Scatter Strength", Range(-0.1,0.1)) = 0.01
+ _NoiseTex ("Noise Tex (RGB)", 2D) = "black" { }
+[HideInInspector]  _NoiseAnmSpeed ("Noise Animation Speed", Float) = 1
+ _NoiseStrength ("Noise Strength", Float) = 1
+ _BloomFactor ("Bloom Factor", Float) = 1
+[Toggle(RECT_MASK)]  _RectMask ("Rect Mask", Float) = 0
+ _RMRect ("Rect Mask Rect", Vector) = (0,0,1,1)
+ _RMTransitWidth ("Rect Mask Transit Width", Vector) = (0,0,0,0)
+}
+SubShader { 
+ Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "PreviewType"="Plane" "CanUseSpriteAtlas"="true" }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "PreviewType"="Plane" "CanUseSpriteAtlas"="true" }
+  ZTest [unity_GUIZTestMode]
+  ZWrite Off
+  Cull Off
+  Stencil {
+   Ref [_Stencil]
+   ReadMask [_StencilReadMask]
+   WriteMask [_StencilWriteMask]
+   Comp [_StencilComp]
+   Pass [_StencilOp]
+  }
+  Blend SrcAlpha OneMinusSrcAlpha
+  ColorMask [_ColorMask]
+  GpuProgramID 55149
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 0
+}
+SubProgram "gles3 " {
+GpuProgramIndex 1
+}
+SubProgram "gles " {
+GpuProgramIndex 2
+}
+SubProgram "gles3 " {
+GpuProgramIndex 3
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+SubProgram "gles " {
+GpuProgramIndex 6
+}
+SubProgram "gles3 " {
+GpuProgramIndex 7
+}
+}
+ }
+ Pass {
+  Tags { "QUEUE"="Transparent" "IGNOREPROJECTOR"="true" "RenderType"="Transparent" "PreviewType"="Plane" "CanUseSpriteAtlas"="true" }
+  ZTest [unity_GUIZTestMode]
+  ZWrite Off
+  Cull Off
+  Stencil {
+   Ref [_Stencil]
+   ReadMask [_StencilReadMask]
+   WriteMask [_StencilWriteMask]
+   Comp [_StencilComp]
+   Pass [_StencilOp]
+  }
+  Blend SrcAlpha OneMinusSrcAlpha
+  ColorMask A
+  GpuProgramID 88656
+Program "vp" {
+SubProgram "gles " {
+GpuProgramIndex 8
+}
+SubProgram "gles3 " {
+GpuProgramIndex 9
+}
+}
+Program "fp" {
+SubProgram "gles " {
+GpuProgramIndex 4
+}
+SubProgram "gles3 " {
+GpuProgramIndex 5
+}
+}
+ }
+}
+}
